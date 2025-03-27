@@ -15,9 +15,6 @@ using Hotel.Model;
 
 namespace Hotel.View
 {
-    /// <summary>
-    /// Логика взаимодействия для LoginWindow.xaml
-    /// </summary>
     public partial class LoginWindow : Window
     {
         private int failedAttempts = 0;
@@ -27,7 +24,7 @@ namespace Hotel.View
         }
         private void LoginButtonClick(object sender, RoutedEventArgs e)
         {
-            var user = new User("123", "123");
+            var user = new User("pupkin", "vasia", "123", "123", "Администратор");
 
             if (failedAttempts >= 3)
             {
@@ -44,13 +41,16 @@ namespace Hotel.View
             }
             else if (LoginTextBox.Text.Equals(user.GetLogin()) && LoginPasswordBox.Password.Equals(user.GetPassword()))
             {
-                MessageBox.Show("Добро пожаловать!" , "Сообщение" ,
-                    MessageBoxButton.OK, MessageBoxImage.Information
-                    );
+                MessageBox.Show("Вы успешно авторизовались", "Успех" ,
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                
+                AdminWindow window = new AdminWindow();
+                window.Show();
+                this.Close();
             }
             else {
                 failedAttempts++;
-                MessageBox.Show("Неправильный логин или пароль! Попробуйте ещё раз!", "Предупреждение!",
+                MessageBox.Show("Вы ввели неверный логин или пароль. Пожалуйста проверьте ещё раз введенные данные", "Предупреждение!",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
